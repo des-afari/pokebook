@@ -32,7 +32,7 @@ This will create an optimized build in the dist/ directory.
 <br>
 
 ##  **Dependencies**
----------------------------------------------------------------------------------------
-| Dependencies                            | Version                                   |
-| --------------------------------------- | ----------------------------------------- |
-| react                                   | 18.2.0                                    |
+* react
+* vite-plugin-svgr
+* react-router-dom
+* react-paginate
