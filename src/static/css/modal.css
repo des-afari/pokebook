@@ -1,0 +1,47 @@
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(39, 39, 39, 0.5);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  z-index: 100;
+}
+
+.modal_main {
+  width: 427px;
+  height: 263px;
+}
+.modal_main div:nth-child(1) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  height: 57px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
+  border-radius: 32px 32px 0px 0px;
+}
+.modal_main div:nth-child(1) h2 {
+  font-family: "Clash Display";
+}
+.modal_main div:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 263px;
+  -moz-column-gap: 30px;
+       column-gap: 30px;
+  background: #EBEBEB;
+  border-radius: 0 0 32px 32px;
+}
+.modal_main div:nth-child(2) span {
+  width: 74px;
+  height: 74px;
+  border-radius: 50px;
+}/*# sourceMappingURL=modal.css.map */

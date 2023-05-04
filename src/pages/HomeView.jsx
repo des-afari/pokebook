@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import '../static/css/homeview.css'
 import { ReactComponent as Pokemon } from '../assets/svg/pokemon.svg'
-import { ReactComponent as Search } from '../assets/svg/search.svg'
+import { ReactComponent as Search } from '../assets/svg/home_search.svg'
 import { AppContext } from '../App'
 import { Link } from 'react-router-dom'
 
@@ -11,7 +11,9 @@ const HomeView = () => {
   return (
     <div className='homeview'>
       <div className='homeview_main'>
-        <Pokemon />
+        <div style={{width: "244px", height: "167px"}}>
+          <Pokemon />
+        </div>
         <h1>
           <span>Poké </span>
           <span style={{color: theme}}>book</span>

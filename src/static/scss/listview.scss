@@ -1,0 +1,25 @@
+@import './config';
+
+.listview{
+  min-height: 100vh;
+  position: relative;
+}
+
+.listview_main{
+  position: relative;
+}
+
+.listview_main::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-image: url(../../assets/svg/list_background.svg);
+  height: calc(100vh - 5rem);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  filter: brightness(90%);
+}
+
