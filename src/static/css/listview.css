@@ -30,12 +30,17 @@
   grid-template-columns: repeat(4, 1fr);
   width: 80%;
   margin: auto;
-  gap: 2rem;
+  gap: 1rem;
   margin-top: 2rem;
 }
 
 .pagination {
   height: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  width: 86%;
+  margin: auto;
 }
 
 .card {
@@ -47,6 +52,7 @@
   border-radius: 30px;
   padding: 0.5rem;
   background-color: white;
+  position: relative;
 }
 .card > div:nth-child(1) {
   display: flex;
@@ -57,9 +63,9 @@
 }
 .card > div:nth-child(1) > img {
   position: absolute;
-  width: 160px;
-  height: 160px;
-  transform: translateY(-35px);
+  height: 11rem;
+  width: 11rem;
+  transform: translateY(-25px);
 }
 .card > div:nth-child(2) {
   display: flex;
@@ -87,4 +93,62 @@
   padding: 0.2rem 0.8rem;
   background-color: #eee;
   border-radius: 30px;
+}
+
+.paginationBttns {
+  display: flex;
+  list-style: none;
+}
+.paginationBttns a {
+  font-family: "Clash Display", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  background: #E1E1E1;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.theme_one a {
+  background-color: #E85382;
+  color: white;
+}
+
+.theme_two a {
+  background-color: #39BADF;
+  color: white;
+}
+
+.theme_three a {
+  background-color: #E1A725;
+  color: white;
+}
+
+.card:hover {
+  height: 95%;
+  grid-template-rows: 50.4263% 33.6842% 1fr;
+  z-index: 100;
+}
+
+.card:hover .view_button {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.view_button {
+  border: none;
+  border-radius: 14px;
+  opacity: 0;
+  pointer-events: none;
+  margin-top: 0.5rem;
+  font-family: "General Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 21.6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.7rem;
+  cursor: pointer;
 }/*# sourceMappingURL=listview.css.map */
