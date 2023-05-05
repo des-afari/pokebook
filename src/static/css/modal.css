@@ -1,23 +1,22 @@
-.modal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.modal::backdrop {
   background: rgba(39, 39, 39, 0.5);
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
-  z-index: 100;
 }
 
-.modal_main {
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0;
   width: 427px;
   height: 263px;
+  border: none;
+  border-radius: 32px;
 }
-.modal_main div:nth-child(1) {
+
+.modal_title {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,21 +26,34 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
   border-radius: 32px 32px 0px 0px;
 }
-.modal_main div:nth-child(1) h2 {
-  font-family: "Clash Display";
-}
-.modal_main div:nth-child(2) {
+
+.modal_content {
+  height: 206px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 263px;
-  -moz-column-gap: 30px;
-       column-gap: 30px;
-  background: #EBEBEB;
-  border-radius: 0 0 32px 32px;
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
+  background-color: #EBEBEB;
 }
-.modal_main div:nth-child(2) span {
+.modal_content span {
   width: 74px;
   height: 74px;
   border-radius: 50px;
+}
+
+.selected_theme::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 120px;
+  left: 67px;
+  right: 0px;
+  bottom: 0px;
+  width: 76px;
+  height: 76px;
+  border-radius: 50px;
+  background-color: transparent;
+  border: 3px solid #868686;
+  pointer-events: none;
 }/*# sourceMappingURL=modal.css.map */

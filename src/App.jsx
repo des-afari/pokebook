@@ -7,7 +7,12 @@ export const AppContext = createContext()
 
 const App = () => {
 
-  const [theme, setTheme] = useState('#E85382')
+  const theme_1 = '#E85382'
+  const theme_2 = '#39BADF'
+  const theme_3 = '#E1A725'
+
+  const current_theme = localStorage.getItem('pokebook_theme')
+  const [theme, setTheme] = useState(current_theme || theme_1)
 
   const router = createBrowserRouter([
     {
@@ -20,7 +25,7 @@ const App = () => {
     }
   ])
   return (
-    <AppContext.Provider value={{theme, setTheme}}>
+    <AppContext.Provider value={{theme_1, theme_2, theme_3, theme, setTheme}}>
       <RouterProvider router={router} />
     </AppContext.Provider>
   )

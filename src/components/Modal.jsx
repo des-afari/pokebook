@@ -6,45 +6,32 @@ const Modal = () => {
   const current_theme = localStorage.getItem('theme')
   const [selectedOption, setSelectedOption] = useState(current_theme || '#E85382' );
   const {setTheme} = useContext(AppContext)
-  const modalRef = useRef()
+  const modalRef = useRef(null)
+  const modalMain = useRef(null)
 
   useEffect(() => {
     setTheme(selectedOption)
   }, [selectedOption])
 
-  // const handlClickOutside = () => {
-  //   localStorage.setItem('theme', selectedOption)
-  // }
 
-  document.addEventListener('click', e => {
-    console.log(e.target)
-    console.log(modalRef.current)
-  })
+  useEffect(() => {
+    const handleClickOutside = e => {
+      if (
+        !modalMain.current.contains(e.target) &&
+        modalRef.current !== e.target
+      ){
+        console.log('Yes');
+      } else{
+        console.log('Yes');
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+  }, [])
+
 
   return (
     <div className='modal' ref={modalRef}>
-      <div className='modal_main'>
-        <div>
-          <h2>Choose Theme</h2>
-        </div>
-        <div>
-          <span
-            style={{background: '#E85382'}}
-            onClick={() => setSelectedOption('#E85382')}
-            />
-          <span
-            value='blue'
-            style={{background: '#39BADF'}}
-            onClick={() => setSelectedOption('#39BADF')}
-            />
-          <span
-            style={{background: '#E1A725'}}
-            onClick={() => {
-              setSelectedOption('#E1A725')
-            }}
-          />
-        </div>
-      </div>
+      
     </div>
   )
 }

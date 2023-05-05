@@ -1,17 +1,30 @@
-import { useContext, useState } from 'react'
+import { useContext, useRef, useEffect } from 'react'
 import { AppContext } from '../App'
 import '../static/css/header.css'
+import '../static/css/modal.css'
 import { ReactComponent as Pokemon } from '../assets/svg/pokemon.svg'
 import { ReactComponent as Search } from '../assets/svg/list_search.svg'
 
-const Header = props => {
-  const {theme} = useContext(AppContext)
-  const [toggle, setToggle] = useState(true)
+const Header = () => {
+  const {theme_1, theme_2, theme_3, theme, setTheme} = useContext(AppContext)
+  const modal = useRef(null)
 
-  const handleClick = () => {
-    setToggle(!toggle)
-    props.toggleState(toggle)
-  }
+  useEffect(() => {
+  const modalMain = modal.current
+
+  modalMain.addEventListener('click', e => {
+    const dimensions = modalMain.getBoundingClientRect()
+    if(
+      e.clientX < dimensions.left ||
+      e.clientX > dimensions.right ||
+      e.clientY < dimensions.top ||
+      e.clientY > dimensions.bottom
+      ){
+        localStorage.setItem('pokebook_theme', theme)
+        modalMain.close()
+      }
+    })
+  }, [theme])
 
   return (
     <header>
@@ -32,9 +45,21 @@ const Header = props => {
       </div>
       <div>
         <div>
-          <button style={{background: theme}} onClick={handleClick}></button>
+          <button style={{background: theme}} onClick={() => modal.current.showModal()}></button>
         </div>
       </div>
+
+      {/* Modal */}
+      <dialog ref={modal} className='modal'>
+        <div className='modal_title'>
+          <h2>Choose Theme</h2>
+        </div>
+        <div className='modal_content'>
+          <span style={{background: theme_1}} onClick={() => setTheme(theme_1)} />
+          <span style={{background: theme_2}} onClick={() => setTheme(theme_2)} />
+          <span style={{background: theme_3}} onClick={() => setTheme(theme_3)} />
+        </div>
+      </dialog>
     </header>
   )
 }
