@@ -14,6 +14,7 @@ const ListView = () => {
   const [pageNumber, setPageNumber] = useState(0)
   const [currentTheme, setCurrentTheme] = useState('')
   const [hoverCard, setHoverCard] = useState(null)
+  const [pageNum, setPageNum] = useState('8')
 
   const typeEmojis = {
     "normal": "🐻", "fire": "🔥", "water": "💧", "electric": "⚡️",
@@ -63,15 +64,15 @@ const ListView = () => {
     }
   }, [theme])
 
-  const itemsPerPage = 8
+  const itemsPerPage  = Number(pageNum)
   const pagesVisited = pageNumber * itemsPerPage
 
   const displayPokemons = data.slice(pagesVisited, pagesVisited + itemsPerPage).map(
     item => {
       return (
         <div key={item.id} className={`card ${hoverCard === item.id ? 'hovered' : ''}`}
-             onMouseEnter={() => setHoverCard(item.id)}
-             onMouseLeave={() => setHoverCard(null)}
+          onMouseEnter={() => setHoverCard(item.id)}
+          onMouseLeave={() => setHoverCard(null)}
         >
           <div>
             <img src={item.img} alt="image" />
@@ -86,10 +87,10 @@ const ListView = () => {
               ))
             }</div>
           </div>
-          <button className='view_button' style={{background: theme, color: 'white'}} onClick={() => console.log('click')}>
+          {/* <button className='view_button' style={{background: theme, color: 'white'}} onClick={() => console.log('click')}>
             <span>View Pokemon</span>
             <span><View /></span>
-          </button>
+          </button> */}
         </div>
       )
     }
@@ -112,12 +113,18 @@ const ListView = () => {
           <div className='pagination'>
           <ReactPaginate
             pageRangeDisplayed={4}
-            marginPagesDisplayed={1}
+            marginPagesDisplayed={0}
             previousLabel={'<'} nextLabel={'>'}
             pageCount={pageCount} onPageChange={pageChange}
             containerClassName='paginationBttns'
             activeClassName={currentTheme}
             />
+            <select name="page-size" id="page-size" onChange={e => setPageNum(e.target.value)}>
+              <option value="8">8</option>
+              <option value="12">12</option>
+              <option value="16">16</option>
+              <option value="24">24</option>
+            </select>
           </div>
         </>
         }

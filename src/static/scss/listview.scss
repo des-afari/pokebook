@@ -1,15 +1,12 @@
 @import './config';
 
 .listview{
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
 }
 
 .listview_main{
   position: relative;
-  height: calc(100vh - 5rem);
-  display: grid;
-  grid-template-rows: 1fr 15%;
 }
 
 
@@ -20,68 +17,65 @@
   left: 0;
   width: 100%;
   background-image: url(../../assets/svg/list_background.svg);
-  height: calc(100vh - 5rem);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  filter: brightness(90%);
+  min-height: 100vh;
+  filter: brightness(80%);
 }
 
 .list_main_container{
-  height: calc(100vh - 5rem - 20%);
+  min-height: calc(100vh - 10rem);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
   width: 80%;
   margin: auto;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.pagination{
-  height: 100%;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  width: 86%;
-  margin: auto;
+  column-gap: 30px;
 }
 
 .card{
-  transform: translateY(20px);
-  width: 90%;
+  @include flex(center, center);
+  flex-direction: column;
   height: 80%;
-  display: grid;
-  grid-template-rows: 60% 40%;
-  border-radius: 30px;
+  width: 100%;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.06);
+  transform: translateY(10px);
   padding: .5rem;
   background-color: white;
-  position: relative;
 
   & > div:nth-child(1){
     @include flex(center, center);
-    border-radius: 30px;
+    height: 60%;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     background-color: #F1F1F1;
 
-    & > img {
-      position: absolute;
-      height: 11rem;
-      width: 11rem;
-      transform: translateY(-25px);
+    img{
+      width: 60%;
+      height: 100%;
+      transform: translateY(-20px);
     }
   }
 
   & > div:nth-child(2){
+    height: 40%;
+    width: 100%;
     @include flex(center, center);
+    row-gap: .5rem;
     flex-direction: column;
     background-color: white;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 
-    & > p{
-      font-family: 'Clash Display', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 24px;
-      line-height: 29.52px;
+    p{
+      font-family: 'Clash Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       font-weight: 500;
+      font-size: 24px;
     }
   }
 }
@@ -89,18 +83,25 @@
 .types_container{
   display: flex;
   column-gap: .5rem;
-  margin-top: .5rem;
 
   & > span {
-    padding: .2rem .8rem;
+    padding: 0rem .8rem;
     background-color: #eee;
     border-radius: 30px;
   }
 }
 
+.pagination{
+  height: 7rem;
+  @include flex(space-between, center);
+  width: 80%;
+  margin: auto;
+}
 .paginationBttns{
+  z-index: 100;
   display: flex;
   list-style: none;
+  padding: 0;
 
   & a{
     font-family: 'Clash Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -130,28 +131,35 @@
   color: white;
 }
 
-.card:hover {
-  height: 95%;
-  // transition: 300ms ease-out;
-  grid-template-rows: 50.4263% 33.6842% 1fr;
+// .card:hover {
+//   height: 95%;
+//   // transition: 300ms ease-out;
+//   grid-template-rows: 50.4263% 33.6842% 1fr;
+//   z-index: 100;
+// }
+
+// .card:hover .view_button {
+//   opacity: 1;
+//   pointer-events: all;
+// }
+
+// .view_button{
+//   border: none;
+//   border-radius: 14px;
+//   opacity: 0;
+//   pointer-events: none;
+//   margin-top: .5rem;
+//   font-family: 'General Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+//   font-size: 16px;
+//   line-height: 21.6px;
+//   @include flex(space-between, center);
+//   padding: 0 .7rem;
+//   cursor: pointer;
+// }
+
+#page-size {
   z-index: 100;
-}
-
-.card:hover .view_button {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.view_button{
-  border: none;
-  border-radius: 14px;
-  opacity: 0;
-  pointer-events: none;
-  margin-top: .5rem;
-  font-family: 'General Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 16px;
-  line-height: 21.6px;
-  @include flex(space-between, center);
-  padding: 0 .7rem;
-  cursor: pointer;
+  font-family: 'Clash Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
 }
