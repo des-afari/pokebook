@@ -1,20 +1,29 @@
-import { useContext, useEffect, useState } from 'react'
-import '../static/css/listview.css'
+import { useContext, useEffect, useState, useRef } from 'react'
+import '../static/css/list_view_main.css'
+import '../static/css/pagination.css'
+import '../static/css/card.css'
 import { ReactComponent as View } from '../assets/svg/view.svg'
 import { AppContext } from '../App'
 import Header from '../components/Header'
 import axios from 'axios'
-import ReactPaginate from 'react-paginate'
+import Details from '../components/Details'
+import Pagination from '../components/Pagination'
+import {FadeLoader} from 'react-spinners'
 
 
 const ListView = () => {
-  const {theme, theme_1, theme_2, theme_3} = useContext(AppContext)
+  const {theme} = useContext(AppContext)
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [pageNumber, setPageNumber] = useState(0)
-  const [currentTheme, setCurrentTheme] = useState('')
-  const [hoverCard, setHoverCard] = useState(null)
+  const [hoveredCardId, setHoveredCardId] = useState(null);
   const [pageNum, setPageNum] = useState('8')
+  const [filteredData, setFilteredData] = useState([])
+  const detailRef = useRef(null)
+
+  const itemsPerPage  = Number(pageNum)
+  const pagesVisited = pageNumber * itemsPerPage
+  const pageCount = Math.ceil(data.length/itemsPerPage)
 
   const typeEmojis = {
     "normal": "🐻", "fire": "🔥", "water": "💧", "electric": "⚡️",
@@ -22,7 +31,11 @@ const ListView = () => {
     "ground": "🌍", "flying": "🕊️", "psychic": "🔮", "bug": "🐛",
     "rock": "🪨", "ghost": "👻", "dragon": "🐉", "dark": "🌑",
     "steel": "🔩", "fairy": "🧚"
-  };
+  }
+
+  const pageChange = ({selected}) => {
+    setPageNumber(selected)
+  }
 
   useEffect(() => {
     const getPokemons = async () => {
@@ -32,14 +45,18 @@ const ListView = () => {
         const pokemons = response.data.results
         const details = await Promise.all(pokemons.map(async item => {
           const res = await axios.get(item.url)
-          const {id, name, sprites, types } = res.data
+          const {id, name, sprites, types, height, weight, abilities } = res.data
           const img = sprites.other.dream_world.front_default
           const pokemonTypes = types.map(type => ({
             name: type.type.name,
             emoji: typeEmojis[type.type.name]
           }))
 
-        return {id, name, img, pokemonTypes}
+          const abilityTypes = abilities.map(ability => ({
+            name: ability.ability.name
+          }))
+
+        return {id, name, img, height, weight, pokemonTypes, abilityTypes}
       } ))
 
       setData(details)
@@ -54,25 +71,16 @@ const ListView = () => {
     getPokemons()
   }, [])
 
-  useEffect(() => {
-    if (theme === theme_1) {
-      setCurrentTheme('theme_one')
-    } else if (theme === theme_2) {
-      setCurrentTheme('theme_two')
-    } else if (theme === theme_3) {
-      setCurrentTheme('theme_three')
-    }
-  }, [theme])
 
-  const itemsPerPage  = Number(pageNum)
-  const pagesVisited = pageNumber * itemsPerPage
 
   const displayPokemons = data.slice(pagesVisited, pagesVisited + itemsPerPage).map(
     item => {
+      const isHovered = item.id === hoveredCardId;
       return (
-        <div key={item.id} className={`card ${hoverCard === item.id ? 'hovered' : ''}`}
-          onMouseEnter={() => setHoverCard(item.id)}
-          onMouseLeave={() => setHoverCard(null)}
+        <div key={item.id} id={item.id}
+             className={`card ${isHovered ? "card-hovered" : ""}`}
+             onMouseEnter={() => setHoveredCardId(item.id)}
+             onMouseLeave={() => setHoveredCardId(null)}
         >
           <div>
             <img src={item.img} alt="image" />
@@ -87,47 +95,35 @@ const ListView = () => {
               ))
             }</div>
           </div>
-          {/* <button className='view_button' style={{background: theme, color: 'white'}} onClick={() => console.log('click')}>
-            <span>View Pokemon</span>
-            <span><View /></span>
-          </button> */}
+            <button className={`card-hidden ${isHovered ? "button-show" : ""}`} style={{background: theme}}
+              onClick={e => {
+                const parentId = e.currentTarget.parentElement.id
+                setFilteredData(data.filter(item => item.id === Number(parentId)))
+                detailRef.current.showModal()
+              }}
+            >
+              <span>View Pokemon</span>
+              <View />
+            </button>
         </div>
       )
     }
   )
-
-  const pageCount = Math.ceil(data.length/itemsPerPage)
-  const pageChange = ({selected}) => {
-    setPageNumber(selected)
-  }
 
   return (
     <div className='listview'>
       <Header />
       <div className='listview_main'>
         {
-          loading ? <p>Loading...</p> : <>
+          loading ? <div className='loader_container'> <FadeLoader  /> </div> :
+        <>
           <div className='list_main_container'>
             {displayPokemons}
           </div>
-          <div className='pagination'>
-          <ReactPaginate
-            pageRangeDisplayed={4}
-            marginPagesDisplayed={0}
-            previousLabel={'<'} nextLabel={'>'}
-            pageCount={pageCount} onPageChange={pageChange}
-            containerClassName='paginationBttns'
-            activeClassName={currentTheme}
-            />
-            <select name="page-size" id="page-size" onChange={e => setPageNum(e.target.value)}>
-              <option value="8">8</option>
-              <option value="12">12</option>
-              <option value="16">16</option>
-              <option value="24">24</option>
-            </select>
-          </div>
         </>
         }
+        <Pagination pageCount={pageCount} pageChange={pageChange} setPageNum={setPageNum} />
+        <Details detail={filteredData} ref={detailRef}  />
       </div>
     </div>
   )
