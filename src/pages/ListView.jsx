@@ -45,8 +45,9 @@ const ListView = () => {
         const pokemons = response.data.results
         const details = await Promise.all(pokemons.map(async item => {
           const res = await axios.get(item.url)
-          const {id, name, sprites, types, height, weight, abilities } = res.data
+          const {id, name, sprites, types, height, weight, abilities, stats } = res.data
           const img = sprites.other.dream_world.front_default
+
           const pokemonTypes = types.map(type => ({
             name: type.type.name,
             emoji: typeEmojis[type.type.name]
@@ -56,7 +57,12 @@ const ListView = () => {
             name: ability.ability.name
           }))
 
-        return {id, name, img, height, weight, pokemonTypes, abilityTypes}
+          const statsTypes = stats.map(stat => ({
+              name: stat.stat.name,
+              base_stat: stat.base_stat
+          }))
+
+        return {id, name, img, height, weight, pokemonTypes, abilityTypes, statsTypes}
       } ))
 
       setData(details)
@@ -70,8 +76,6 @@ const ListView = () => {
 
     getPokemons()
   }, [])
-
-
 
   const displayPokemons = data.slice(pagesVisited, pagesVisited + itemsPerPage).map(
     item => {

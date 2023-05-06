@@ -1,8 +1,7 @@
-import React from 'react';
 import '../static/css/about.css';
 
 const About = props => {
-  const { data } = props;
+  const { data } = props
 
   return (
     <div className="detail_var_main">
