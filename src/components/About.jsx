@@ -1,12 +1,12 @@
 import '../static/css/about.css';
 
 const About = props => {
-  const { data } = props
+  const { detail } = props
 
   return (
     <div className="detail_var_main">
       <h1 className="detail_title">About</h1>
-      {data.map(item => (
+      {detail.map(item => (
         <div key={item.id} className="about_item">
           <p>Height</p>
           <p className='data_detail'>{`${(item.height/10).toFixed(1)}m`}</p>

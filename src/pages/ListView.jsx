@@ -1,20 +1,19 @@
 import { useContext, useEffect, useState, useRef } from 'react'
-import '../static/css/list_view_main.css'
-import '../static/css/pagination.css'
-import '../static/css/card.css'
 import { ReactComponent as View } from '../assets/svg/view.svg'
 import { AppContext } from '../App'
-import Header from '../components/Header'
 import axios from 'axios'
+import Header from '../components/Header'
 import Details from '../components/Details'
 import Pagination from '../components/Pagination'
-import {FadeLoader} from 'react-spinners'
+import { FadeLoader } from 'react-spinners'
+import '../static/css/list_view_main.css'
+import '../static/css/card.css'
 
 
 const ListView = () => {
   const {theme} = useContext(AppContext)
   const [data, setData] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [pageNumber, setPageNumber] = useState(0)
   const [hoveredCardId, setHoveredCardId] = useState(null);
   const [pageNum, setPageNum] = useState('8')
@@ -40,12 +39,13 @@ const ListView = () => {
   useEffect(() => {
     const getPokemons = async () => {
       try{
-        setLoading(true)
-        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=100')
+        setIsLoading(true)
+        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=500')
         const pokemons = response.data.results
         const details = await Promise.all(pokemons.map(async item => {
           const res = await axios.get(item.url)
           const {id, name, sprites, types, height, weight, abilities, stats } = res.data
+
           const img = sprites.other.dream_world.front_default
 
           const pokemonTypes = types.map(type => ({
@@ -66,11 +66,11 @@ const ListView = () => {
       } ))
 
       setData(details)
-      setLoading(false)
+      setIsLoading(false)
 
       }catch(err){
         console.error(err)
-        setLoading(false)
+        setIsLoading(false)
       }
     }
 
@@ -119,7 +119,7 @@ const ListView = () => {
       <Header />
       <div className='listview_main'>
         {
-          loading ? <div className='loader_container'> <FadeLoader  /> </div> :
+          isLoading ? <div className='loader_container'> <FadeLoader  /> </div> :
         <>
           <div className='list_main_container'>
             {displayPokemons}

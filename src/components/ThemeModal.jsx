@@ -1,6 +1,6 @@
 import { forwardRef, useContext, useEffect } from 'react'
-import '../static/css/theme_modal.css'
 import { AppContext } from '../App'
+import '../static/css/theme_modal.css'
 
 const ThemeModal = forwardRef((props, ref) => {
   const {theme_1, theme_2, theme_3, setTheme, theme} = useContext(AppContext)

@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react'
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import HomeView from './pages/HomeView'
 import ListView from './pages/ListView'
 
@@ -20,10 +20,11 @@ const App = () => {
       element: <HomeView />
     },
     {
-      path: '/list',
+      path: '/pokemons',
       element: <ListView />
     }
   ])
+  
   return (
     <AppContext.Provider value={{theme_1, theme_2, theme_3, theme, setTheme}}>
       <RouterProvider router={router} />

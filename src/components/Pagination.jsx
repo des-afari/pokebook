@@ -1,12 +1,12 @@
-import {useState, useEffect, useContext} from 'react'
+import { useState, useEffect, useContext } from 'react'
 import ReactPaginate from 'react-paginate'
 import { AppContext } from '../App'
+import '../static/css/pagination.css'
 
 const Pagination = props => {
   const {pageCount, setPageNum, pageChange} = props
   const [currentTheme, setCurrentTheme] = useState('')
   const {theme, theme_1, theme_2, theme_3} = useContext(AppContext)
-
 
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Pagination = props => {
         marginPagesDisplayed={0}
         previousLabel={'<'} nextLabel={'>'}
         pageCount={pageCount} onPageChange={pageChange}
-        containerClassName='paginationBttns'
+        containerClassName='pagination_bttns'
         activeClassName={currentTheme}
         />
         <select name="page-size" id="page-size" onChange={e => setPageNum(e.target.value)}>

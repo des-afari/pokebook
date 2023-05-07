@@ -3,15 +3,14 @@ import '../static/css/stats.css'
 import { AppContext } from '../App'
 
 const Stats = props => {
-  const { data } = props
+  const { detail } = props
   const {theme} = useContext(AppContext)
 
-  console.log(data);
 
   return (
     <div className="detail_stat_main">
       <h1 className="detail_title">Stats</h1>
-      {data.map(item => (
+      {detail.map(item => (
         <div key={item.id} className='stat_container'>
           <div>
             {item.statsTypes.map(stat => (

@@ -1,15 +1,32 @@
-import { forwardRef, useContext, useState } from 'react'
+import { forwardRef, useContext, useState, useEffect } from 'react'
 import { ReactComponent as Back } from '../assets/svg/back.svg'
-import '../static/css/details.css'
 import { AppContext } from '../App';
 import Stats from './Stats';
 import About from './About';
 import Similar from './Similar';
+import '../static/css/details.css'
 
 const Details = forwardRef((props, ref) => {
   const { detail } = props;
   const [route, setRoute] = useState('about')
-  const { theme } = useContext(AppContext)
+  const {theme} = useContext(AppContext)
+
+  useEffect(() => {
+    const modalMain = ref.current
+
+    modalMain.addEventListener('click', e => {
+      const dimensions = modalMain.getBoundingClientRect()
+      if(
+        e.clientX < dimensions.left ||
+        e.clientX > dimensions.right ||
+        e.clientY < dimensions.top ||
+        e.clientY > dimensions.bottom
+        ){
+          modalMain.close()
+        }
+      })
+    }, [])
+
   return (
     <dialog ref={ref} className='details_container'>
       {detail.map(item => (
@@ -29,9 +46,9 @@ const Details = forwardRef((props, ref) => {
               }</div>
             </div>
             <div className='detail_main'>
-              {route === 'about' && <About data={detail} />}
-              {route === 'stats' && <Stats data={detail} />}
-              {route === 'similar' && <Similar data={detail} />}
+              {route === 'about' && <About detail={detail} />}
+              {route === 'stats' && <Stats detail={detail} />}
+              {route === 'similar' && <Similar detail={detail} />}
             </div>
             <div className='detail_route'>
               <div className='det_routes'>
@@ -48,7 +65,6 @@ const Details = forwardRef((props, ref) => {
 })
 
 Details.displayName = 'Details';
-
 
 export default Details
 

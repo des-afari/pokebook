@@ -1,13 +1,13 @@
+import { Link } from 'react-router-dom'
 import { useContext } from 'react'
-import '../static/css/homeview.css'
+import { AppContext } from '../App'
 import { ReactComponent as Pokemon } from '../assets/svg/pokemon.svg'
 import { ReactComponent as Search } from '../assets/svg/home_search.svg'
-import { AppContext } from '../App'
-import { Link } from 'react-router-dom'
-
+import '../static/css/homeview.css'
 
 const HomeView = () => {
   const {theme} = useContext(AppContext)
+  
   return (
     <div className='homeview'>
       <div className='homeview_main'>
@@ -21,11 +21,11 @@ const HomeView = () => {
         <p>Largest Pokémon index with information about every Pokemon you can think of. </p>
         <div className='searchbar' style={{border: `6px solid ${theme}`}}>
           <input type="text" placeholder='Enter pokemon name' />
-          <Link to='/list' style={{background: theme}}>
+          <Link to='/pokemons' style={{background: theme}}>
             <Search />
           </Link>
         </div>
-        <Link to='/list' style={{color: 'black', fontWeight: '500'}}>View all</Link>
+        <Link to='/pokemons' style={{color: 'black', fontWeight: '500'}}>View all</Link>
       </div>
     </div>
   )

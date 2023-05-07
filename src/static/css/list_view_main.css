@@ -6,20 +6,11 @@
 .listview_main {
   position: relative;
   min-height: calc(100vh - 5rem);
-}
-
-.listview_main::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-image: url(../../assets/svg/list_background.svg);
+  background-image: url(../../assets/svg/background.svg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   min-height: 100vh;
-  filter: brightness(80%);
 }
 
 .loader_container {
