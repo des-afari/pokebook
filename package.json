@@ -1,7 +1,6 @@
 {
   "name": "pokebook",
   "private": false,
-  "homepage": "https://des-afari.github.com/pokebook",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -9,8 +8,6 @@
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build"
   },
   "dependencies": {
     "axios": "^1.4.0",
