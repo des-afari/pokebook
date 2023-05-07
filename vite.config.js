@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     svgr(),
   ],
-  base: '/pokebook'
+  base: './'
 })
