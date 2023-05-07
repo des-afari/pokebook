@@ -48,7 +48,7 @@ const ListView = () => {
 
       }else{
         try{
-          const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=150')
+          const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=400')
           const pokemons = response.data.results
           const details = await Promise.all(pokemons.map(async item => {
             const res = await axios.get(item.url)
