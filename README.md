@@ -41,6 +41,4 @@ This will create an optimized build in the dist/ directory.
 
 <br>
 
-## **Website**
-
 
