@@ -7,7 +7,7 @@ import '../static/css/homeview.css'
 
 const HomeView = () => {
   const {theme} = useContext(AppContext)
-  
+
   return (
     <div className='homeview'>
       <div className='homeview_main'>
@@ -21,11 +21,11 @@ const HomeView = () => {
         <p>Largest Pokémon index with information about every Pokemon you can think of. </p>
         <div className='searchbar' style={{border: `6px solid ${theme}`}}>
           <input type="text" placeholder='Enter pokemon name' />
-          <Link to='/pokemons' style={{background: theme}}>
+          <Link to='/list' style={{background: theme}}>
             <Search />
           </Link>
         </div>
-        <Link to='/pokemons' style={{color: 'black', fontWeight: '500'}}>View all</Link>
+        <Link to='/list' style={{color: 'black', fontWeight: '500'}}>View all</Link>
       </div>
     </div>
   )

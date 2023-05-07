@@ -41,9 +41,10 @@ dialog {
   background-color: #EBEBEB;
 }
 .modal_content span {
-  width: 74px;
-  height: 74px;
+  width: 4.7rem;
+  height: 4.7rem;
   border-radius: 50px;
+  cursor: pointer;
 }
 
 .selected_theme::after {

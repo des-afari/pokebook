@@ -38,44 +38,55 @@ const ListView = () => {
 
   useEffect(() => {
     const getPokemons = async () => {
-      try{
-        setIsLoading(true)
-        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=500')
-        const pokemons = response.data.results
-        const details = await Promise.all(pokemons.map(async item => {
-          const res = await axios.get(item.url)
-          const {id, name, sprites, types, height, weight, abilities, stats } = res.data
+      setIsLoading(true)
 
-          const img = sprites.other.dream_world.front_default
+      const cachedData = localStorage.getItem('pokebook_data')
 
-          const pokemonTypes = types.map(type => ({
-            name: type.type.name,
-            emoji: typeEmojis[type.type.name]
-          }))
-
-          const abilityTypes = abilities.map(ability => ({
-            name: ability.ability.name
-          }))
-
-          const statsTypes = stats.map(stat => ({
-              name: stat.stat.name,
-              base_stat: stat.base_stat
-          }))
-
-        return {id, name, img, height, weight, pokemonTypes, abilityTypes, statsTypes}
-      } ))
-
-      setData(details)
-      setIsLoading(false)
-
-      }catch(err){
-        console.error(err)
+      if (cachedData){
+        setData(JSON.parse(cachedData))
         setIsLoading(false)
+
+      }else{
+        try{
+          const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=500')
+          const pokemons = response.data.results
+          const details = await Promise.all(pokemons.map(async item => {
+            const res = await axios.get(item.url)
+            const {id, name, sprites, types, height, weight, abilities, stats } = res.data
+
+            const img = sprites.other.dream_world.front_default
+
+            const pokemonTypes = types.map(type => ({
+              name: type.type.name,
+              emoji: typeEmojis[type.type.name]
+            }))
+
+            const abilityTypes = abilities.map(ability => ({
+              name: ability.ability.name
+            }))
+
+            const statsTypes = stats.map(stat => ({
+                name: stat.stat.name,
+                base_stat: stat.base_stat
+            }))
+
+          return {id, name, img, height, weight, pokemonTypes, abilityTypes, statsTypes}
+        } ))
+
+        setData(details)
+        localStorage.setItem('pokebook_data', JSON.stringify(details))
+        setIsLoading(false)
+
+        }catch(err){
+          console.error(err)
+          setIsLoading(false)
+        }
       }
-    }
+      }
 
     getPokemons()
   }, [])
+
 
   const displayPokemons = data.slice(pagesVisited, pagesVisited + itemsPerPage).map(
     item => {
@@ -99,7 +110,7 @@ const ListView = () => {
               ))
             }</div>
           </div>
-            <button className={`card-hidden ${isHovered ? "button-show" : ""}`} style={{background: theme}}
+            <button className={`button_hidden ${isHovered ? "button-show" : ""}`} style={{background: theme}}
               onClick={e => {
                 const parentId = e.currentTarget.parentElement.id
                 setFilteredData(data.filter(item => item.id === Number(parentId)))

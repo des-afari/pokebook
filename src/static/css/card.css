@@ -33,9 +33,9 @@
   background-color: #F1F1F1;
 }
 .card > div:nth-child(1) img {
-  width: 60%;
+  width: 55%;
   height: 141.32px;
-  transform: translateY(-20px);
+  transform: translateY(-30px);
 }
 .card > div:nth-child(2) {
   height: 75px;
@@ -72,12 +72,12 @@
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.card-hidden {
+.button_hidden {
   height: 15%;
   margin-top: 0.2rem;
   width: 100%;
   border: 0;
-  border-radius: 10px;
+  border-radius: 12px;
   color: white;
   display: flex;
   justify-content: space-between;

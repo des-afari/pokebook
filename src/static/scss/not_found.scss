@@ -1,0 +1,9 @@
+@import './config';
+
+.not_found{
+  height: 100vh;
+  @include flex(center, center);
+  flex-direction: column;
+  font-size: 3rem;
+  font-family: 'Clash Display', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

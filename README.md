@@ -36,3 +36,11 @@ This will create an optimized build in the dist/ directory.
 * vite-plugin-svgr
 * react-router-dom
 * react-paginate
+* axios
+* react-spinners
+
+<br>
+
+## **Website**
+
+
