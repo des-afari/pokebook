@@ -1,11 +1,11 @@
 # Pokebook
 
+This project was bootstrapped with [Vite](https://github.com/vitejs/vite).
+
 ## **Website**
 https://pokebook-delta.vercel.app/
 
 <br>
-
-This project was bootstrapped with [Vite](https://github.com/vitejs/vite).
 
 ## **Getting Started**
 
