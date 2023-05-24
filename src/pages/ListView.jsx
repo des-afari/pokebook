@@ -39,50 +39,41 @@ const ListView = () => {
   useEffect(() => {
     const getPokemons = async () => {
       setIsLoading(true)
+      try{
+        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=400')
+        const pokemons = response.data.results
 
-      const cachedData = localStorage.getItem('pokebook_data')
+        const details = await Promise.all(pokemons.map(async item => {
+          const res = await axios.get(item.url)
+          const {id, name, sprites, types, height, weight, abilities, stats } = res.data
 
-      if (cachedData){
-        setData(JSON.parse(cachedData))
-        setIsLoading(false)
+          const img = sprites.other.dream_world.front_default
 
-      }else{
-        try{
-          const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=400')
-          const pokemons = response.data.results
-          const details = await Promise.all(pokemons.map(async item => {
-            const res = await axios.get(item.url)
-            const {id, name, sprites, types, height, weight, abilities, stats } = res.data
+          const pokemonTypes = types.map(type => ({
+            name: type.type.name,
+            emoji: typeEmojis[type.type.name]
+          }))
 
-            const img = sprites.other.dream_world.front_default
+          const abilityTypes = abilities.map(ability => ({
+            name: ability.ability.name
+          }))
 
-            const pokemonTypes = types.map(type => ({
-              name: type.type.name,
-              emoji: typeEmojis[type.type.name]
-            }))
-
-            const abilityTypes = abilities.map(ability => ({
-              name: ability.ability.name
-            }))
-
-            const statsTypes = stats.map(stat => ({
-                name: stat.stat.name,
-                base_stat: stat.base_stat
-            }))
+          const statsTypes = stats.map(stat => ({
+              name: stat.stat.name,
+              base_stat: stat.base_stat
+          }))
 
           return {id, name, img, height, weight, pokemonTypes, abilityTypes, statsTypes}
         } ))
 
         setData(details)
-        localStorage.setItem('pokebook_data', JSON.stringify(details))
         setIsLoading(false)
 
-        }catch(err){
+      }catch(err){
           console.error(err)
           setIsLoading(false)
         }
-      }
-      }
+    }
 
     getPokemons()
   }, [])
